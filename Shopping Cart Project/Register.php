@@ -26,14 +26,19 @@
 			Create an account
 		</title>
 	</head>
-	
+	<link rel= "stylesheet" href = "style.css" type="text/css" media="screen" />
 	<body>
 		<form name="register" method="POST" action="Register.php">
-			<h1>Create an account</h1>
-			<p>Name: <input type='text' name='customerDetails[0]' value=""/></p>
-			<p>Username: <input type='text' name='customerDetails[1]' value=""/></p>
-			<p>Password: <input type='password' name='customerDetails[2]' value=""/></p>
+			<center> 
+			<div class ="header"> <h1>Create an account</h1></div>
+			<p class = "coffee-text"> Name </p> 
+			<input type='text' name='customerDetails[0]' value=""/>
+			<p class = "coffee-text"> Username: </p> 
+			<input type='text' name='customerDetails[1]' value=""/>
+			<p class = "coffee-text">Password: </p>  
+			<input type='password' name='customerDetails[2]' value=""/>
 			<p> <input type='submit' name='submit' value='Create account'/></p>
+			</center>
 		</form>
 	</body>
 	

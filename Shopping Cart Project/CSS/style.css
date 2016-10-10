@@ -1,0 +1,133 @@
+.header {
+ font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-style: normal;
+    color: #fe504f;
+    letter-spacing: -0.5px;
+    width: 90%;
+
+}
+
+header{
+	 font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-style: normal;
+    color: #fe504f;
+    letter-spacing: -0.5px;
+    width: 90%;
+	letter-spacing:0.1em;
+ text-transform: lowercase;
+ line-height: 145%;
+ font-size: 20pt;
+ font-variant: small-caps;
+
+}
+
+p.coffee-text{
+color: #424242;
+font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+margin-right:15px;
+letter-spacing:0.1em;
+ text-transform: lowercase;
+ line-height: 145%;
+ font-size: 20pt;
+ font-variant: small-caps;
+}
+
+p.coffee{
+letter-spacing:0.1em;
+ text-transform: lowercase;
+ line-height: 145%;
+ font-size: 20pt;
+ font-variant: small-caps;
+	
+}
+
+
+input[type=text]{
+	
+	border:2px solid #456879;
+	border-radius:10px;
+	height: 22px;
+	width: 230px;
+}
+
+input[type=password]{
+	
+	border:2px solid #456879;
+	border-radius:10px;
+	height: 22px;
+	width: 230px;
+}
+
+input[type=submit]
+{
+	 font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+	border-radius:10px;
+	height: 22px;
+	width: 230px;
+	margin-top:22px;	
+}
+
+
+a:link {
+    color: #424242;
+}
+
+/* visited link */
+a:visited {
+    color:  #456879;
+}
+
+/* mouse over link */
+a:hover {
+    color: green;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+}
+a:font{
+	
+	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+}
+
+table{
+  width:100%;
+  table-layout: fixed;
+}
+
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color:#424242;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #424242;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+	
+body {
+  background-color: :#494636;
+     
+}
+	
+
