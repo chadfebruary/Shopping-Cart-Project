@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2016 at 09:19 PM
+-- Generation Time: Oct 10, 2016 at 04:17 AM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.19
 
@@ -49,6 +49,7 @@ INSERT INTO `customer` (`CustomerID`, `Name`, `MembershipID`, `Username`, `Passw
 
 CREATE TABLE `inventory` (
   `productID` varchar(10) NOT NULL,
+  `picture` varchar(255) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `weight` varchar(50) NOT NULL,
@@ -59,12 +60,12 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`productID`, `name`, `description`, `weight`, `price`) VALUES
-('COFFEE001', 'Jamaican Blue Mountain Coffee', 'This extraordinary coffee, famous for its exquisite flavor and strong body, is grown in teh majestic Blue Mountain range in Jamaica.', '1 pound', 22.95),
-('COFFEE002', 'Blue Grove Hawaiian Maui Premium Coffee', 'This delightful coffee has an aroma that is captivatingly rich and nutty with a faint hint of citrus.', '1 pound', 18.89),
-('COFFEE003', 'Sumatra Supreme Coffee', 'One of the finest coffees in the world, medium roasted to accentuate its robust character.', '5 pounds', 29.95),
-('COFFEE004', 'Pure Kona Coffee', 'Grown and processed using traditional Hawaiian methods, then roasted in small batches to maintain peak freshness and flavor.', '10 ounces', 21.45),
-('COFFEE005', 'Guatemala Antigua Coffee', 'An outstanding coffee with a rich, spicy, and smokey flavor.', '10 ounces', 7.5);
+INSERT INTO `inventory` (`productID`, `picture`, `name`, `description`, `weight`, `price`) VALUES
+('COFFEE003', '', 'Sumatra Supreme Coffee', 'One of the finest coffees in the world, medium roasted to accentuate its robust character.', '5 pounds', 29.95),
+('COFFEE004', '', 'Pure Kona Coffee', 'Grown and processed using traditional Hawaiian methods, then roasted in small batches to maintain peak freshness and flavor.', '10 ounces', 21.45),
+('COFFEE005', '', 'Guatemala Antigua Coffee', 'An outstanding coffee with a rich, spicy, and smokey flavor.', '10 ounces', 7.5),
+('COFFEE001', '\\Images\\coffee', 'Jamaican Blue Mountain Coffee', 'This extraordinary coffee, famous for its exquisite flavor and strong body, is grown in teh majestic Blue Mountain range in Jamaica.', '1 pound', 22.95),
+('COFFEE002', '', 'Blue Grove Hawaiian Maui Premium Coffee', 'This delightful coffee has an aroma that is captivatingly rich and nutty with a faint hint of citrus.', '1 pound', 18.89);
 
 -- --------------------------------------------------------
 
@@ -88,6 +89,20 @@ CREATE TABLE `membership` (
   `Name` varchar(30) DEFAULT NULL,
   `RegistrationDate` datetime DEFAULT NULL,
   `MembershipType` varchar(30) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu`
+--
+
+CREATE TABLE `menu` (
+  `MenuID` int(11) NOT NULL,
+  `ItemName` varchar(30) DEFAULT NULL,
+  `ItemPrice` float DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `Description` varchar(30) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -163,6 +178,12 @@ ALTER TABLE `membership`
   ADD PRIMARY KEY (`MembershipID`);
 
 --
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`MenuID`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -203,6 +224,11 @@ ALTER TABLE `item`
 --
 ALTER TABLE `membership`
   MODIFY `MembershipID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `MenuID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orders`
 --

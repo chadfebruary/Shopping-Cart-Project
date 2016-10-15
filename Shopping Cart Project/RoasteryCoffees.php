@@ -1,79 +1,176 @@
 <?php
 	session_start();
-	require_once("Database.php");
-	$Database = new Database();
+	/*require_once("config/Database.php");
+	$Database = new Database();*/
 	
-	if(!empty($_POST["action"]))
+	$PageTitle = "Products";
+	include "head.php";
+	
+	$action = isset($_GET['action']) ? $_GET['action'] : "";
+	$productID = isset($_GET['productID']) ? $_GET['productID'] : "";
+	$name = isset($_GET['name']) ? $_GET['name'] : "";
+	$weight = isset($_GET['weight']) ? $_GET['weight'] : "";
+	$price = isset($_GET['price']) ? $_GET['price'] : "";
+	
+	if($action == "added")
+	{
+		echo "<div class='alert alert-info'>";
+        echo "<strong>{$name}</strong> added to your cart successfully.";
+		echo "</div>";
+	}
+	if($action == "exists")
+	{
+		echo "<div class='alert alert-info'>";
+        echo "<strong>{$name}</strong> has already been added to your cart.";
+		echo "</div>";
+	}
+	$Sql = "SELECT name, productID, weight, price FROM Inventory ORDER BY name";
+	//$Statement = $Database->prepare($Sql);
+	//$Statement->execute();
+	$Result = $Database->query($Sql);
+	$Number = $Result->num_rows;
+	
+	if($Number > 0)
+	{
+		echo "<table class='table table-hover table-responsive table-bordered'>";
+	 
+			echo "<tr>";
+				echo "<th class='textAlignLeft'>Product Name</th>";
+				echo "<th>Price</th>";
+				echo "<th>Action</th>";
+			echo "</tr>";
+	 
+			while ($Row = $Result->fetch_assoc()){
+				//extract($row);
+	 
+				echo "<tr>";
+					echo "<td>";
+						echo "<div class='productID' style='display:none;'>{$productID}</div>";
+						echo "<div class='name'>{$name}</div>";
+					echo "</td>";
+					echo "<td>&#36;{$price}</td>";
+					echo "<td>";
+						echo "<a href='add_to_cart.php?id={$productID}&name={$name}' class='btn btn-primary'>";
+							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Add to cart";
+						echo "</a>";
+					echo "</td>";
+				echo "</tr>";
+			}
+	 
+		echo "</table>";
+	}
+	else
+	{
+		echo "No products were found.";
+	}
+	/*if(!empty($_GET["action"]))
 	{	
-		switch($_POST["action"])
+		switch($_GET["action"])
 		{
 			case "add":
 				if(!empty($_POST["quantity"]))
 				{
-					$ProductByID = $Database->query("SELECT * FROM Inventory WHERE ProductID='".$_POST["productID"]."'");
-					$ProductArray = array($ProductByID[0]["productID"]=>array('picture'=>$ProductByID[0]["picture"],'name'=>$ProductByID[0]["name"], 'description'=>$ProductByID[0]["description"], 'price'=>$ProductByID[0]["price"]));
-					
+					$ProductByID = $Database->query("SELECT Name, ProductID, Quantity, Weight FROM Inventory WHERE ProductID='".$_GET["productID"]."'");
+					//$ProductArray = array($ProductByID[0]["productID"]=>array('name'=>$ProductByID[0]["name"], 'weight'=>$ProductByID[0]["weight"], 'price'=>$ProductByID[0]["price"]));
+					$ProductArray = array();
+					while($Row = $ProductByID->fetch_assoc())
+					{
+						$ProductArray = $Row;
+						echo $Row["name"];
+					}
 					if(!empty($_SESSION["cartItem"]))
 					{
-						
+						if(in_array($ProductArray, $_SESSION["cartItem"]))
+						{
+							foreach($_SESSION["cartItem"] as $Key=>$Value)
+							{
+								if($ProductByID[0]["productID"] == $Key)
+								{
+									$_SESSION["cartItem"][$Key]["quantity"] = $_POST["quantity"];
+								}
+							}
+						}
+						else
+						{
+							$_SESSION["cartItem"] = array_merge($_SESSION["cartItem"], $ProductArray);
+						}
+					}
+					else
+					{
+						$_SESSION["cartItem"] = $ProductArray;
 					}
 				}
 			break;
 			case "remove":
 				if(!empty($_SESSION["cartItem"]))
 				{
-					
+					foreach($_SESSION["cartItem"] as $Key=>$Value)
+					{
+						if($_GET["productID"] == $Key)
+						{
+							unset($_SESSION["cartItem"][$Key]);
+						}
+						if(empty($_SESSION["cartItem"]))
+						{
+							unset($_SESSION["cartItem"]);
+						}
+					}
 				}
 			break;
 			case "empty":
 				unset($_SESSION["cartItem"]);
 			break;
 		}
-	}
+	}*/
 ?>
+<?PHP/*
 <html>
 <head>
 <title> Roastery's  Coffee </title>
+<link rel= "stylesheet" href = "style.css" type="text/css" media="screen" />
 </head>
-
 <body>
-<h1> Roastery's Coffee </h1>
-<h2> Description goes here</h2>
-
-<p>Welcome message goes here </p>
 <div id="shoppingCart">
-<div class="txt-heading">Shopping Cart<a id="btnEmpty" href="RoasteryCoffees.php?action=empty">Empty Cart</a></div>
-
+<div class="txt-heading">Roastery's Coffee<a id="btnEmpty" href="RoasteryCoffees.php?action=empty">Empty Cart</a></div>
+*/?>
 <?php
-if(isset($_SESSION["cartItem"])){
+/*if(isset($_SESSION["cartItem"])){
 	$ItemTotal = 0;
 ?>
 
 <table cellpadding="10" cellspacing="1">
 <tbody>
 <tr>
-<th><strong>Picture</strong></th>
 <th><strong>Name</strong></th>
-<th><strong>Description</strong></th>
+<th><strong>Product ID</th>
+<th><strong>Quantity</th>
 <th><strong>Weight</strong></th>
 <th><strong>Price</strong></th>
+<th><strong>Remove</strong></th>
 </tr>
 <?php 
 	foreach($_SESSION["cartItem"] as $Item){
 		?>
 		<tr>
-		<td><strong><?php echo $Item["picture"];?></strong></td>
-		<td><?php echo $Item["name"];?></td>
-		<td><?php echo $Item["description"];?></td>
+		<td><strong><?php echo $Item["name"];?></strong></td>
+		<td><?php echo $Item["productID"];?></td>
+		<td><?php echo $Item["quantity"];?></td>
 		<td><?php echo $Item["weight"];?></td>
 		<td><?php echo $Item["price"];?></td>
+		<td><a href="RoasteryCoffees.php?action=remove&productID=<?php echo $Item["productID"];?>" class="btnRemove">Remove</a></td>
 		</tr>
 	<?php
-		}
+	$ItemTotal += ($Item["price"] * $Item["quantity"]);	}
 	?>
+<tr>
+<td colspan="5" align=right><strong>Total:</strong><?php echo "R".$ItemTotal;?></td>
+</tr>
 </tbody>
 </table>
 <?php
+	}
+	else{
+		echo "Empty cart";
 	}
 ?>
 </div>
@@ -87,10 +184,9 @@ if(isset($_SESSION["cartItem"])){
 			while($Row = $ProductList->fetch_assoc()){
 		?>
 			<div class="product-item">
-				<form method="POST" action="RoasteryCoffees?action=add&code=<?php echo $Row["productID"];?>">
+				<form method="POST" action="RoasteryCoffees.php?action=add&productID=<?php echo $Row["productID"];?>">
 					<div class="product-image"><img src="<?php echo $Row["picture"];?>"></div>
 					<div><strong><?php echo $Row["name"];?></strong></div>
-					<div><strong><?php echo $Row["description"];?></strong></div>
 					<div><strong><?php echo $Row["weight"];?></strong></div>
 					<div class="product-price"><?php echo "R".$Row["price"];?></div>
 					<div>
@@ -100,8 +196,5 @@ if(isset($_SESSION["cartItem"])){
 				</form>
 			</div>
 	<?php }
-		}
+		}*/
 	?>
-</div>
-</body>
-</html>
