@@ -35,6 +35,14 @@ $cartCount = "";
                         Your shopping cart <span class="badge" id="comparison-count"><?php echo $cartCount; ?></span>
                     </a>
                 </li>
+				<li
+					<?php echo $PageTitle == "Login" ? "class='active'" : "";?>>
+					<a href="login.php">Login</a>
+				</li>
+				<li
+					<?php echo $PageTitle == "Register" ? "class='active'" : "";?>>
+					<a href="register.php">Register</a>
+				</li>
             </ul>
         </div><!--/.nav-collapse -->
  

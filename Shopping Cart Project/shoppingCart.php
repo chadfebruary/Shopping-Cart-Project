@@ -14,7 +14,7 @@ $price = isset($_GET['price']) ? $_GET['price'] : "";
 
 if($action=='removed'){
     echo "<div class='alert alert-info'>";
-        echo "<strong>".$name."</strong> was removed from your cart!";
+        echo "<strong>Item was removed successfully.</strong>";
     echo "</div>";
 } 
 else if($action=='quantityUpdated'){

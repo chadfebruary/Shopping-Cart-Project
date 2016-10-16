@@ -8,7 +8,6 @@
 	//require_once("Database.php"); 
 	//$Database = new Database();
 	
-	
 	$PageTitle = "Coffees";
 	include "head.php";
 	
@@ -45,7 +44,7 @@
 				echo "<th>Coffee name</th>";
 				echo "<th>Weight</th>";
 				echo "<th>Price</th>";
-				echo "<th>Action</th>";
+				echo "<th>Add item</th>";
 			echo "</tr>";
 	 
 			while ($Row = $Result->fetch_assoc()){
