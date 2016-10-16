@@ -1,7 +1,11 @@
 <?php
 //session_start();
-include 'config/Database.php';
-$Database = new Database();
+//define('__ROOT__', dirname(dirname(__FILE__)));
+	//require_once (__ROOT__.'\Shopping Cart Project\Database.php');
+	//echo dirname(__FILE__)."\Database.php";
+	//include dirname(__FILE__)."\Database.php";
+	require_once ('Database.php');
+	$Database = new Database();
 $PageTitle = "";
 ?>
 <!DOCTYPE html>

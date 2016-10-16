@@ -16,16 +16,7 @@ class Database
 		{
 			die ("Connection failed: ".$this->DatabaseConnection->connect_error);
 		}
-		else
-		{
-			echo "Connection succeeded.";
-		}
 		$this->createTables();
-		/*if(mysqli_connect_error())
-		{
-			die("<p>Unable to connect to the database.</p>
-				<p>Error code: ".mysqli_connect_errno()."</p>");
-		}*/
 	}
 	
 	function __destruct()

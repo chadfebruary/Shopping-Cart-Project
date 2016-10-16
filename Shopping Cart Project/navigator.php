@@ -1,6 +1,8 @@
 <?php
 //session_start();
-$PageTitle = "";
+//require_once "shoppingCart.php";
+//$PageTitle = "";
+$cartCount = "";
 ?>
 <!-- navbar -->
 <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -18,16 +20,19 @@ $PageTitle = "";
  
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li <?php echo $PageTitle == "Products" ? "class='active'" : ""; ?> >
-                    <a href="RoasteryCoffees.php">Products</a>
+                <li <?php echo $PageTitle == "Roastery Coffees" ? "class='active'" : ""; ?> >
+                    <a href="RoasteryCoffees.php">Coffees</a>
                 </li>
-                <li <?php echo $PageTitle == "Cart" ? "class='active'" : ""; ?> >
+                <li <?php echo $PageTitle == "Shopping Cart" ? "class='active'" : ""; ?> >
                     <a href="shoppingCart.php">
                         <?php
-                        // count products in cart
-                        $cart_count=count($_SESSION['cartItems']);
-                        ?>
-                        Cart <span class="badge" id="comparison-count"><?php echo $cart_count; ?></span>
+						if(isset($_SESSION["cartItems"]))
+						{
+							// count products in cart
+							$cartCount=count($_SESSION['cartItems']);
+                        }
+						?>
+                        Your shopping cart <span class="badge" id="comparison-count"><?php echo $cartCount; ?></span>
                     </a>
                 </li>
             </ul>

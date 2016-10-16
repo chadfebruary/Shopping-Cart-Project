@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2016 at 04:17 AM
+-- Generation Time: Oct 16, 2016 at 12:03 PM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.19
 
@@ -61,11 +61,12 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`productID`, `picture`, `name`, `description`, `weight`, `price`) VALUES
-('COFFEE003', '', 'Sumatra Supreme Coffee', 'One of the finest coffees in the world, medium roasted to accentuate its robust character.', '5 pounds', 29.95),
-('COFFEE004', '', 'Pure Kona Coffee', 'Grown and processed using traditional Hawaiian methods, then roasted in small batches to maintain peak freshness and flavor.', '10 ounces', 21.45),
-('COFFEE005', '', 'Guatemala Antigua Coffee', 'An outstanding coffee with a rich, spicy, and smokey flavor.', '10 ounces', 7.5),
-('COFFEE001', '\\Images\\coffee', 'Jamaican Blue Mountain Coffee', 'This extraordinary coffee, famous for its exquisite flavor and strong body, is grown in teh majestic Blue Mountain range in Jamaica.', '1 pound', 22.95),
-('COFFEE002', '', 'Blue Grove Hawaiian Maui Premium Coffee', 'This delightful coffee has an aroma that is captivatingly rich and nutty with a faint hint of citrus.', '1 pound', 18.89);
+('COFFEE003', 'camera.jpg', 'Sumatra Supreme Coffee', 'One of the finest coffees in the world, medium roasted to accentuate its robust character.', '5 pounds', 29.95),
+('COFFEE004', 'camera.jpg', 'Pure Kona Coffee', 'Grown and processed using traditional Hawaiian methods, then roasted in small batches to maintain peak freshness and flavor.', '10 ounces', 21.45),
+('COFFEE005', 'camera.jpg', 'Guatemala Antigua Coffee', 'An outstanding coffee with a rich, spicy, and smokey flavor.', '10 ounces', 7.5),
+('COFFEE001', 'camera.jpg', 'Jamaican Blue Mountain Coffee', 'This extraordinary coffee, famous for its exquisite flavor and strong body, is grown in teh majestic Blue Mountain range in Jamaica.', '1 pound', 22.95),
+('COFFEE002', 'camera.jpg', 'Blue Grove Hawaiian Maui Premium Coffee', 'This delightful coffee has an aroma that is captivatingly rich and nutty with a faint hint of citrus.', '1 pound', 18.89),
+('test', 'camera.jpg', 'test', 'test', 'test', 1);
 
 -- --------------------------------------------------------
 

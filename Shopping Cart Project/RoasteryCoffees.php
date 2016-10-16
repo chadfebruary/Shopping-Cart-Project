@@ -1,13 +1,19 @@
 <?php
 	session_start();
-	/*require_once("config/Database.php");
-	$Database = new Database();*/
+	//require_once("../Database.php");
+	//define('__ROOT__', dirname(dirname(__FILE__)));
+	//require_once (__ROOT__.'\Shopping Cart Project\Database.php');
 	
-	$PageTitle = "Products";
+	//include dirname(__FILE__)."\Database.php";
+	//require_once("Database.php"); 
+	//$Database = new Database();
+	
+	
+	$PageTitle = "Coffees";
 	include "head.php";
 	
-	$action = isset($_GET['action']) ? $_GET['action'] : "";
 	$productID = isset($_GET['productID']) ? $_GET['productID'] : "";
+	$action = isset($_GET['action']) ? $_GET['action'] : "";
 	$name = isset($_GET['name']) ? $_GET['name'] : "";
 	$weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 	$price = isset($_GET['price']) ? $_GET['price'] : "";
@@ -15,13 +21,13 @@
 	if($action == "added")
 	{
 		echo "<div class='alert alert-info'>";
-        echo "<strong>{$name}</strong> added to your cart successfully.";
+        echo "<strong>".$name."</strong> added to your cart successfully.";
 		echo "</div>";
 	}
 	if($action == "exists")
 	{
 		echo "<div class='alert alert-info'>";
-        echo "<strong>{$name}</strong> has already been added to your cart.";
+        echo "<strong>".$name."</strong> has already been added to your cart.";
 		echo "</div>";
 	}
 	$Sql = "SELECT name, productID, weight, price FROM Inventory ORDER BY name";
@@ -35,7 +41,9 @@
 		echo "<table class='table table-hover table-responsive table-bordered'>";
 	 
 			echo "<tr>";
-				echo "<th class='textAlignLeft'>Product Name</th>";
+				echo "<th class='textAlignLeft'>Product ID</th>";
+				echo "<th>Coffee name</th>";
+				echo "<th>Weight</th>";
 				echo "<th>Price</th>";
 				echo "<th>Action</th>";
 			echo "</tr>";
@@ -44,14 +52,13 @@
 				//extract($row);
 	 
 				echo "<tr>";
+					echo "<td><div class='productID'>".$Row['productID']."</div></td>";
+					echo "<td><div class='name'>".$Row['name']."</div></td>";
+					echo "<td><div class='weight'>".$Row["weight"]."</div></td>";
+					echo "<td><div class='price'>R ".$Row["price"]."</div></td>";
 					echo "<td>";
-						echo "<div class='productID' style='display:none;'>{$productID}</div>";
-						echo "<div class='name'>{$name}</div>";
-					echo "</td>";
-					echo "<td>&#36;{$price}</td>";
-					echo "<td>";
-						echo "<a href='add_to_cart.php?id={$productID}&name={$name}' class='btn btn-primary'>";
-							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Add to cart";
+						echo "<a href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."' class='btn btn-primary'>";
+							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Add item to cart";
 						echo "</a>";
 					echo "</td>";
 				echo "</tr>";
@@ -63,6 +70,10 @@
 	{
 		echo "No products were found.";
 	}
+	
+	include "foot.php";
+?>
+<?PHP
 	/*if(!empty($_GET["action"]))
 	{	
 		switch($_GET["action"])
@@ -122,8 +133,7 @@
 			break;
 		}
 	}*/
-?>
-<?PHP/*
+/*
 <html>
 <head>
 <title> Roastery's  Coffee </title>
@@ -132,8 +142,7 @@
 <body>
 <div id="shoppingCart">
 <div class="txt-heading">Roastery's Coffee<a id="btnEmpty" href="RoasteryCoffees.php?action=empty">Empty Cart</a></div>
-*/?>
-<?php
+*/
 /*if(isset($_SESSION["cartItem"])){
 	$ItemTotal = 0;
 ?>
