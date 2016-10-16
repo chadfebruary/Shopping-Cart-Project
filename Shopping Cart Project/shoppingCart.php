@@ -7,7 +7,8 @@ include 'head.php';
  
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 $productID = isset($_GET['productID']) ? $_GET['productID'] : "";
-$name = isset($_GET['name']) ? $_GET['name'] : "";
+$name = isset($_GET['name']) ? $_GET['name'] : "error";
+$name = 'error';
 $weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 $price = isset($_GET['price']) ? $_GET['price'] : "";
 
@@ -15,8 +16,7 @@ if($action=='removed'){
     echo "<div class='alert alert-info'>";
         echo "<strong>".$name."</strong> was removed from your cart!";
     echo "</div>";
-}
- 
+} 
 else if($action=='quantityUpdated'){
     echo "<div class='alert alert-info'>";
         echo "<strong>".$name."</strong> quantity was updated!";
@@ -30,12 +30,12 @@ if(isset($_SESSION["cartItems"]))
 		// get the product ids
 		$productIDs = "";
 		foreach($_SESSION['cartItems'] as $productID=>$value){
-			$productIDs = $productIDs . $productID . ",";
+			$productIDs = $productIDs."'". $productID . "',";
 		}
-	 
+	 //echo $productIDs."\n";
 		// remove the last comma
 		$productIDs = rtrim($productIDs, ',');
-	 
+		//echo $productIDs;
 		//start table
 		echo "<table class='table table-hover table-responsive table-bordered'>";
 	 
@@ -55,24 +55,26 @@ if(isset($_SESSION["cartItems"]))
 	 
 			$TotalPrice=0;
 			while ($Row = $Result->fetch_assoc()){
-				//extract($row);
+				//extract($Row);
 	 
 				echo "<tr>";
-					echo "<td>{$name}</td>";
-					echo "<td>&#36;{$price}</td>";
+					echo "<td>".$Row['productID']."</td>";
+					echo "<td>".$Row['name']."</td>";
+					echo "<td>".$Row['weight']."</td>";
+					echo "<td>R ".$Row['price']."</td>";
 					echo "<td>";
-						echo "<a href='removeFromCart.php?id={$productID}&name={$name}' class='btn btn-danger'>";
+						echo "<a href='removeFromCart.php?productID=".$productID."&name=".$name."&weight=".$weight."&price=".$price."' class='btn btn-danger'>";
 							echo "<span class='glyphicon glyphicon-remove'></span> Remove from cart";
 						echo "</a>";
 					echo "</td>";
 				echo "</tr>";
 	 
-				$TotalPrice+=$price;
+				$TotalPrice += $price;
 			}
 	 
 			echo "<tr>";
 					echo "<td><b>Total</b></td>";
-					echo "<td>&#36;{$TotalPrice}</td>";
+					echo "<td>R ".$TotalPrice."</td>";
 					echo "<td>";
 						echo "<a href='#' class='btn btn-success'>";
 							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Checkout";

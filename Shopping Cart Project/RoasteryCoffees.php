@@ -13,10 +13,10 @@
 	include "head.php";
 	
 	$productID = isset($_GET['productID']) ? $_GET['productID'] : "";
-	$action = isset($_GET['action']) ? $_GET['action'] : "";
 	$name = isset($_GET['name']) ? $_GET['name'] : "";
 	$weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 	$price = isset($_GET['price']) ? $_GET['price'] : "";
+	$action = isset($_GET['action']) ? $_GET['action'] : "";
 	
 	if($action == "added")
 	{
@@ -30,7 +30,7 @@
         echo "<strong>".$name."</strong> has already been added to your cart.";
 		echo "</div>";
 	}
-	$Sql = "SELECT name, productID, weight, price FROM Inventory ORDER BY name";
+	$Sql = "SELECT productID, name, weight, price FROM Inventory ORDER BY name";
 	//$Statement = $Database->prepare($Sql);
 	//$Statement->execute();
 	$Result = $Database->query($Sql);
