@@ -2,9 +2,11 @@
 	include("Database.php");
 	$Database = new Database();
 	$PageTitle = "";
-	if(isset($_POST["submit"]))
+	if(isset($_POST["btnRegister"]))
 	{
+		
 		$CustomerDetails = $_POST['customerDetails'];
+		
 		if(!empty($CustomerDetails[0]) && !empty($CustomerDetails[1]) && !empty($CustomerDetails[2]))
 		{
 			$Sql = "INSERT INTO Customer(name, username, password) VALUES('$CustomerDetails[0]', '$CustomerDetails[1]', '$CustomerDetails[2]')";
@@ -14,10 +16,15 @@
 			}
 			else
 			{
-				echo "Error: ";
+				echo "The username already exists.";
 			}
 		}
+		else
+		{
+		echo "<center>Please enter values into the required fields.</center>";
+		}	
 	}
+	
 ?>
 
 <!DOCTYPE html>
@@ -45,17 +52,17 @@
 		<?php include 'navigator.php'; ?>
 	<div class="container"/>
 	<body>
-		<form name="register" method="POST" action="login.php">
+		<form name="register" method="POST" action="Register.php">
 			<center> 
-			<div class ="header"> <h1> Enter your details: </h1></div>
+			<p> <h9>Enter your details: </h9></p> 
 			<p class = "coffee-text"> Name </p> 
 			<input type='text' name='customerDetails[0]' value=""/>
 			<p class = "coffee-text"> Username: </p> 
 			<input type='text' name='customerDetails[1]' value=""/>
 			<p class = "coffee-text">Password: </p>  
 			<input type='password' name='customerDetails[2]' value=""/>
-			<p><a href="roasteryCoffees.php?username='.$username.'&password='.$password.'" class='btn btn-primary'>
-			   <span class="glyphicon glyphicon-lock"></span> Create account
+		<p> <input type="submit" name="btnRegister" value= "Create account" /> </P>
+		
 			   </a>
 			</p>
 			</center>

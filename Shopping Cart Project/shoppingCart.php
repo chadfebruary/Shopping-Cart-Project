@@ -1,3 +1,10 @@
+
+<html>
+<body>
+<link rel= "stylesheet" href = "css/style.css" type="text/css" media="screen" />
+
+
+
 <?php
 session_start();
  //print_r(get_declared_classes());
@@ -11,6 +18,7 @@ $name = isset($_GET['name']) ? $_GET['name'] : "error";
 $name = 'error';
 $weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 $price = isset($_GET['price']) ? $_GET['price'] : "";
+$picture = isset($_GET['picture']) ? $_GET['picture'] : "";
 
 if($action=='removed'){
     echo "<div class='alert alert-info'>";
@@ -45,10 +53,13 @@ if(isset($_SESSION["cartItems"]))
 				echo "<th>Coffee name</th>";
 				echo "<th>Weight</th>";
 				echo "<th>Price</th>";
+				echo "<th>Picture</th>";
 				echo "<th>Action</th>";
+			    
+				
 			echo "</tr>";
 	 
-			$Sql = "SELECT productID, name, weight, price FROM Inventory WHERE productID IN (".$productIDs.") ORDER BY name";
+			$Sql = "SELECT productID, name, weight, price, picture FROM Inventory WHERE productID IN (".$productIDs.") ORDER BY name";
 	 
 			$Result = $Database->query($Sql);
 			$Number = $Result->num_rows;
@@ -62,8 +73,9 @@ if(isset($_SESSION["cartItems"]))
 					echo "<td>".$Row['name']."</td>";
 					echo "<td>".$Row['weight']."</td>";
 					echo "<td>R ".$Row['price']."</td>";
+					echo "<td> ".$Row['picture']."</td>";
 					echo "<td>";
-						echo "<a href='removeFromCart.php?productID=".$productID."&name=".$name."&weight=".$weight."&price=".$price."' class='btn btn-danger'>";
+						echo "<a href='removeFromCart.php?productID=".$productID."&name=".$name."&weight=".$weight."&price=".$price."&picture=".$picture."' class='btn btn-danger'>";
 							echo "<span class='glyphicon glyphicon-remove'></span> Remove from cart";
 						echo "</a>";
 					echo "</td>";
@@ -92,3 +104,5 @@ if(isset($_SESSION["cartItems"]))
  }
 include 'foot.php';
 ?>
+</body>
+	</html>

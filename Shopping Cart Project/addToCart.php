@@ -6,6 +6,7 @@ $productID = isset($_GET['productID']) ? $_GET['productID'] : "";
 $name = isset($_GET['name']) ? $_GET['name'] : "";
 $weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 $price = isset($_GET['price']) ? $_GET['price'] : "";
+$picture = isset($_GET['picture']) ? $_GET['picture'] : "";
 //$quantity = isset($_GET['quantity']) ? $_GET['quantity'] : "";
  
 /*

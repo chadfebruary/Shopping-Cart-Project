@@ -1,3 +1,47 @@
+
+<html>
+<body>
+<link rel= "stylesheet" href = "css/style.css" type="text/css" media="screen" />
+
+
+<?php
+	include("Database.php"); 
+	$Database = new Database();
+	$PageTitle = "";
+	$username = "";
+	$password = "";
+	$error = "";
+	
+	if(isset($_POST["login"]))
+	{
+		if(empty($_POST["username"]) || empty($_POST["password"]))
+		{
+			$error = "Username and password are required.";
+		}
+	else
+	{
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$Sql = "select * from login where password='$password' AND username='$username'";
+		$Result = $Database->query($Sql);
+		$Rows = $Result->num_rows;
+		
+		if($Rows == 1)
+		{
+			$_SESSION['username'] = $username;
+			header("location: roasteryCoffees.php");
+		}
+		else
+		{
+			$error = "Username or Password is invalid";
+		}
+	}
+	}
+?>
+
+
+
+
 <?php
 	session_start();
 	//require_once("../Database.php");
@@ -16,6 +60,7 @@
 	$weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 	$price = isset($_GET['price']) ? $_GET['price'] : "";
 	$action = isset($_GET['action']) ? $_GET['action'] : "";
+	$picture = isset($_GET['picture']) ? $_GET['picture'] : "";
 	
 	if($action == "added")
 	{
@@ -29,7 +74,7 @@
         echo "<strong>".$name."</strong> has already been added to your cart.";
 		echo "</div>";
 	}
-	$Sql = "SELECT productID, name, weight, price FROM Inventory ORDER BY name";
+	$Sql = "SELECT productID, name, weight, price,picture FROM Inventory ORDER BY name";
 	//$Statement = $Database->prepare($Sql);
 	//$Statement->execute();
 	$Result = $Database->query($Sql);
@@ -44,19 +89,23 @@
 				echo "<th>Coffee name</th>";
 				echo "<th>Weight</th>";
 				echo "<th>Price</th>";
+				echo "<th>Picture</th>";
 				echo "<th>Add item</th>";
+				
 			echo "</tr>";
 	 
 			while ($Row = $Result->fetch_assoc()){
 				//extract($row);
 	 
+				
 				echo "<tr>";
 					echo "<td><div class='productID'>".$Row['productID']."</div></td>";
 					echo "<td><div class='name'>".$Row['name']."</div></td>";
 					echo "<td><div class='weight'>".$Row["weight"]."</div></td>";
 					echo "<td><div class='price'>R ".$Row["price"]."</div></td>";
+					echo "<td><div class='picture'> ".$Row["picture"]."</div></td>";
 					echo "<td>";
-						echo "<a href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."' class='btn btn-primary'>";
+						echo "<a href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."&picture=".$Row['picture']."' class='btn btn-primary'>";
 							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Add item to cart";
 						echo "</a>";
 					echo "</td>";
@@ -206,3 +255,5 @@
 	<?php }
 		}*/
 	?>
+		</body>
+	</html>

@@ -1,3 +1,6 @@
+<html>
+<body>
+
 <?php
 	session_start();
 	include("Database.php"); 
@@ -5,19 +8,27 @@
 	$PageTitle = "";
 	$username = "";
 	$password = "";
-	$error = "";
+	$error = 0;
 	
-	if(isset($_POST["login"]))
+
+
+	if(isset($_POST['btnlogin']))
 	{
+		
 		if(empty($_POST["username"]) || empty($_POST["password"]))
 		{
+			
 			$error = "Username and password are required.";
+			echo "<center><div><p> $error </p></div></center>";
+			$error++;
 		}
+	
 	else
 	{
+		
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		$Sql = "select * from login where password='$password' AND username='$username'";
+		$Sql = "SELECT * from customer where password='$password' AND username='$username'";
 		$Result = $Database->query($Sql);
 		$Rows = $Result->num_rows;
 		
@@ -28,8 +39,11 @@
 		}
 		else
 		{
-			$error = "Username or Password is invalid";
+			$error = "<center>Username or Password is invalid</center>";
+		echo $error;
 		}
+		
+	
 	}
 	}
 ?>
@@ -59,18 +73,18 @@
  
 		<!-- container -->
 		<div class="container">
-		<form name="login" method="POST" action="roasteryCoffees.php">
+		<form name="login" method="POST" action="login.php">
 			<center>
-			<div class ="header"> <h1> Please log in: </h1></div>
+			<p> <h9>Please log in: </h9></p> 
 			<p class = "coffee-text"> Your user name:</p> 
-			<input type="text" name="LoginDetails[0]" value="">
+			<input type="text" name="username" value="">
 			<p class = "coffee-text"> Your password:</p> 
-			<input type="password" name="LoginDetails[1]" value="">
-			<p><a href="roasteryCoffees.php?username='.$username.'&password='.$password.'" class='btn btn-primary' >
-			   <span class="glyphicon glyphicon-lock" ></span> Login
-			   </a>
+			<input type="password" name="password" value="">
+			
+			<p> <input type="submit" name="btnlogin" value= "Login" />
+			
 			</p>
-			<a href="Register.php">Not registered? Create an account!</a>
+			<a href="Register.php"> Not registered? Create an account!</a>
 		</center>
 		</form>
 		
@@ -80,3 +94,5 @@
 <?php
 $Database->__destruct();
 ?>
+</body>
+</html>
