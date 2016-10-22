@@ -12,17 +12,15 @@
 			$Sql = "INSERT INTO Customer(name, username, password) VALUES('$CustomerDetails[0]', '$CustomerDetails[1]', '$CustomerDetails[2]')";
 			if($Database->query($Sql) === true)
 			{
-				header("Location: Login.php");
+				header("Location: roasteryCoffees.php");
 			}
 			else
 			{
-				echo "The username already exists.";
+				echo '<script language="javascript">';
+			echo 'alert("The username already exists")';
+			echo '</script>';
 			}
 		}
-		else
-		{
-		echo "<center>Please enter values into the required fields.</center>";
-		}	
 	}
 	
 ?>
@@ -56,11 +54,11 @@
 			<center> 
 			<p> <h9>Enter your details: </h9></p> 
 			<p class = "coffee-text"> Name </p> 
-			<input type='text' name='customerDetails[0]' value=""/>
+			<input type='text' name='customerDetails[0]' value="" required/>
 			<p class = "coffee-text"> Username: </p> 
-			<input type='text' name='customerDetails[1]' value=""/>
+			<input type='text' name='customerDetails[1]' value="" required/>
 			<p class = "coffee-text">Password: </p>  
-			<input type='password' name='customerDetails[2]' value=""/>
+			<input type='password' name='customerDetails[2]' value="" required/>
 		<p> <input type="submit" name="btnRegister" value= "Create account" /> </P>
 		
 			   </a>

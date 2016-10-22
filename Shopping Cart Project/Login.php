@@ -15,17 +15,6 @@
 	if(isset($_POST['btnlogin']))
 	{
 		
-		if(empty($_POST["username"]) || empty($_POST["password"]))
-		{
-			
-			$error = "Username and password are required.";
-			echo "<center><div><p> $error </p></div></center>";
-			$error++;
-		}
-	
-	else
-	{
-		
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$Sql = "SELECT * from customer where password='$password' AND username='$username'";
@@ -39,13 +28,14 @@
 		}
 		else
 		{
-			$error = "<center>Username or Password is invalid</center>";
-		echo $error;
-		}
-		
+			echo '<script language="javascript">';
+			echo 'alert("Username or Password is invalid")';
+			echo '</script>';
+			
+		//echo $error;
+		}	
+	}
 	
-	}
-	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,9 +67,9 @@
 			<center>
 			<p> <h9>Please log in: </h9></p> 
 			<p class = "coffee-text"> Your user name:</p> 
-			<input type="text" name="username" value="">
+			<input type="text" name="username" value="" required>
 			<p class = "coffee-text"> Your password:</p> 
-			<input type="password" name="password" value="">
+			<input type="password" name="password" value="" required>
 			
 			<p> <input type="submit" name="btnlogin" value= "Login" />
 			
