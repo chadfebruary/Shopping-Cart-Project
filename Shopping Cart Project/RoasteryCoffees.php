@@ -1,9 +1,3 @@
-
-<html>
-<body>
-<link rel= "stylesheet" href = "css/style.css" type="text/css" media="screen" />
-
-
 <?php
 	include("Database.php"); 
 	$Database = new Database();
@@ -12,37 +6,6 @@
 	$password = "";
 	$error = "";
 	
-	if(isset($_POST["login"]))
-	{
-		if(empty($_POST["username"]) || empty($_POST["password"]))
-		{
-			$error = "Username and password are required.";
-		}
-	else
-	{
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$Sql = "select * from login where password='$password' AND username='$username'";
-		$Result = $Database->query($Sql);
-		$Rows = $Result->num_rows;
-		
-		if($Rows == 1)
-		{
-			$_SESSION['username'] = $username;
-			header("location: roasteryCoffees.php");
-		}
-		else
-		{
-			$error = "Username or Password is invalid";
-		}
-	}
-	}
-?>
-
-
-
-
-<?php
 	session_start();
 	//require_once("../Database.php");
 	//define('__ROOT__', dirname(dirname(__FILE__)));
@@ -53,6 +16,7 @@
 	//$Database = new Database();
 	
 	$PageTitle = "Coffees";
+	$extras = '<link rel= "stylesheet" href = "css/style.css" type="text/css" media="screen" />';
 	include "head.php";
 	
 	$productID = isset($_GET['productID']) ? $_GET['productID'] : "";
@@ -61,6 +25,9 @@
 	$price = isset($_GET['price']) ? $_GET['price'] : "";
 	$action = isset($_GET['action']) ? $_GET['action'] : "";
 	$picture = isset($_GET['picture']) ? $_GET['picture'] : "";
+	$quantity = 1;
+	
+	
 	
 	if($action == "added")
 	{
@@ -96,7 +63,6 @@
 	 
 			while ($Row = $Result->fetch_assoc()){
 				//extract($row);
-	 
 				
 				echo "<tr>";
 					echo "<td><div class='productID'>".$Row['productID']."</div></td>";
@@ -105,12 +71,39 @@
 					echo "<td><div class='price'>R ".$Row["price"]."</div></td>";
 					echo "<td><div class='picture'> ".$Row["picture"]."</div></td>";
 					echo "<td>";
-						echo "<a href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."&picture=".$Row['picture']."' class='btn btn-primary'>";
+						echo "<a onclick='insertValues(\"".$Row['productID']."\")' href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."&picture=".$Row['picture']."' class='btn btn-primary'>    ";
 							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Add item to cart";
 						echo "</a>";
 					echo "</td>";
 				echo "</tr>";
+			// $.get( "test.php", { name: "John", time: "2pm" } );
+
+
+
+	
 			}
+			?>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+	function insertValues(prodId){
+		$.ajax({
+			type: "POST",
+			url: "insertValues.php",
+			data: ({productID:prodId, quantity:1}),
+			success: function(data) {
+				alert("Successfully succcuesesdsesesdse ("+prodId+"): " + data);
+			},
+			error: function(data){
+				alert("Alert");
+			}
+		});
+	};
+</script>
+
+<?php
+	 
+	 
+	 
 	 
 		echo "</table>";
 	}
@@ -255,5 +248,3 @@
 	<?php }
 		}*/
 	?>
-		</body>
-	</html>
