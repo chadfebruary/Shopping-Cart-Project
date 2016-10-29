@@ -8,8 +8,13 @@
 	$usernameError="";
 	$passwordError = "";
 	
-	/*if (isset($_SESSION['username']) != ""){
+	if (isset($_SESSION['username']) != ""){
 		header("Location: RoasteryCoffees.php");
+		exit;
+	}/*
+	else if(isset($_SESSION['username']) == "")
+	{
+		header("Location: Login.php");
 		exit;
 	}*/
 	
