@@ -4,13 +4,14 @@
 <?php
 	session_start();
 	include("Database.php"); 
+	
 	$Database = new Database();
 	$PageTitle = "";
 	$username = "";
 	$password = "";
 	$error = 0;
 	
-
+  //echo convertCurrency(150.50, "USD", "INR");
 
 	if(isset($_POST['btnlogin']))
 	{
@@ -24,6 +25,7 @@
 		if($Rows == 1)
 		{
 			$_SESSION['username'] = $username;
+		   // $_SESSION['username'];
 			header("location: roasteryCoffees.php");
 		}
 		else
