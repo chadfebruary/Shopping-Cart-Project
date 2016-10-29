@@ -3,6 +3,7 @@
 //require_once "shoppingCart.php";
 //$PageTitle = "";
 $cartCount = "";
+$username = "";
 ?>
 <!-- navbar -->
 <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -35,15 +36,33 @@ $cartCount = "";
                         Your shopping cart <span class="badge" id="comparison-count"><?php echo $cartCount; ?></span>
                     </a>
                 </li>
-				<li
-					<?php echo $PageTitle == "Login" ? "class='active'" : "";?>>
-					<a href="login.php">Login</a>
+				<li <?php echo $PageTitle == "Your orders" ? "class='active'" : "";?>>
+					<a href="viewOrders.php">Your orders</a>
 				</li>
-				<li
-					<?php echo $PageTitle == "Register" ? "class='active'" : "";?>>
+				</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+				
+				<li <?php echo $PageTitle == "Register" ? "class='active'" : "";?>>
 					<a href="register.php">Register</a>
 				</li>
-            </ul>
+				
+				<li <?php echo $PageTitle == "Login" ? "class='active'" : "";?>>
+					<a href="login.php">Login
+					<?php
+						if(isset($_SESSION["username"]))
+						{
+							// count products in cart
+							$username=$_SESSION['username'];
+                        }
+					?>
+					<span class="badge" id="comparison-count"><?php echo $username; ?></span>
+					</a>
+				</li>
+				
+				<li <?php echo $PageTitle == "Logout" ? "class='active'" : "";?>>
+					<a href="login.php">Logout</a>
+				</ul>
         </div><!--/.nav-collapse -->
  
     </div>
