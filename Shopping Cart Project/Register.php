@@ -1,7 +1,8 @@
 <?php
-	include("Database.php");
+	include_once("Database.php");
 	$Database = new Database();
 	$PageTitle = "";
+	
 	if(isset($_POST["btnRegister"]))
 	{
 		
@@ -12,7 +13,7 @@
 			$Sql = "INSERT INTO Customer(name, username, password) VALUES('$CustomerDetails[0]', '$CustomerDetails[1]', '$CustomerDetails[2]')";
 			if($Database->query($Sql) === true)
 			{
-				header("Location: roasteryCoffees.php");
+				header("Location: login.php");
 			}
 			else
 			{

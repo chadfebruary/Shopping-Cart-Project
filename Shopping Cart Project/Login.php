@@ -1,41 +1,76 @@
-<html>
-<body>
-
 <?php
 	session_start();
-	include("Database.php"); 
-	
+	include_once("Database.php"); 
 	$Database = new Database();
 	$PageTitle = "";
 	$username = "";
 	$password = "";
-	$error = 0;
+	$usernameError="";
+	$passwordError = "";
 	
-  //echo convertCurrency(150.50, "USD", "INR");
+	/*if (isset($_SESSION['username']) != ""){
+		header("Location: RoasteryCoffees.php");
+		exit;
+	}*/
+	
+	$error = false;
 
 	if(isset($_POST['btnlogin']))
 	{
+		$username = trim($_POST['username']);
+		$username = strip_tags($username);
+		$username = htmlspecialchars($username);
 		
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$Sql = "SELECT * from customer where password='$password' AND username='$username'";
-		$Result = $Database->query($Sql);
-		$Rows = $Result->num_rows;
+		$password = trim($_POST['password']);
+		$password = strip_tags($password);
+		$password = htmlspecialchars($password);
 		
-		if($Rows == 1)
+		if(empty($username))
 		{
-			$_SESSION['username'] = $username;
-		   // $_SESSION['username'];
-			header("location: roasteryCoffees.php");
+			$error = true;
+			$usernameError = "Please enter your username.";
 		}
-		else
+		if(empty($password))
+		{
+			$error = true;
+			$passwordError = "Please enter your password.";
+		}
+		
+		if(!$error)
+		{
+			//$password = hash('sha256', $password);
+			
+			$Sql = "SELECT username, password from customer where username='$username'";
+			$Result = $Database->query($Sql);
+			$Number = $Result->num_rows;
+			$Row = $Result->fetch_assoc();
+			
+			if($Number == 1)
+			{
+				$username = $Row['username'];
+				//$password = $Result['password'];
+				$_SESSION['username'] = $username;
+				header("location: roasteryCoffees.php");
+			}
+			else
+			{
+				$errorMessage = "Your details are incorrect. Please try again.";
+			}
+		}
+		
+		//$username = $_POST['username'];
+		//$password = $_POST['password'];
+		
+		
+		
+		/*else
 		{
 			echo '<script language="javascript">';
 			echo 'alert("Username or Password is invalid")';
 			echo '</script>';
 			
 		//echo $error;
-		}	
+		}*/	
 	}
 	
 ?>
@@ -49,7 +84,7 @@
  
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
  
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,18 +100,39 @@
  
 		<!-- container -->
 		<div class="container">
-		<form name="login" method="POST" action="login.php">
+		<form name="login" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 			<center>
 			<p> <h9>Please log in: </h9></p> 
-			<p class = "coffee-text"> Your user name:</p> 
-			<input type="text" name="username" value="" required>
-			<p class = "coffee-text"> Your password:</p> 
-			<input type="password" name="password" value="" required>
 			
-			<p> <input type="submit" name="btnlogin" value= "Login" />
+			<?php
+				if(isset($errorMessage))
+				{
+			?>
+				<div class="alert alert-danger">
+					<span class="glyphicon glyphicon-info-sign"></span> <?php echo $errorMessage; ?>
+                </div>
+			<?php
+				}
+			?>
+			<div class="form-group">
+				<p class = "coffee-text"> Your user name:</p> 
+				<input type="text" name="username" class="form-control" value="<?php echo $username?>">
+				<span class="text-danger"><?php echo $usernameError?></span>
+			</div>
 			
-			</p>
-			<a href="Register.php"> Not registered? Create an account!</a>
+			<div class="form group">
+				<p class = "coffee-text"> Your password:</p> 
+				<input type="password" name="password" class="form-control" value="<?php echo $password?>">
+				<span class="text-danger"><?php echo $passwordError?></span>
+			</div>
+			
+			<div class="form-group">
+			<p> <button type="submit" class="btn btn-primary" name="btnlogin">Login</button></p>
+			<div>
+			
+			<div class="form-group">
+			<p><a href="Register.php"> Not registered? Create an account!</a></p>
+			</div>
 		</center>
 		</form>
 		

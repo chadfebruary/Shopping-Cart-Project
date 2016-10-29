@@ -1,9 +1,10 @@
 <?php
-	include("Database.php"); 
-	$Database = new Database();
+	include_once("Database.php"); 
+	//include "Login.php";
+
 	$PageTitle = "";
-	$username = "";
-	$password = "";
+	//$username = "";
+	//$password = "";
 	$error = "";
 	
 	session_start();
@@ -15,6 +16,11 @@
 	//require_once("Database.php"); 
 	//$Database = new Database();
 	
+	/*if (isset($_SESSION['username']) == ""){
+		header("Location: login.php");
+		exit;
+	}*/
+	
 	$PageTitle = "Coffees";
 	$extras = '<link rel= "stylesheet" href = "css/style.css" type="text/css" media="screen" />';
 	include "head.php";
@@ -23,8 +29,9 @@
 	$name = isset($_GET['name']) ? $_GET['name'] : "";
 	$weight = isset($_GET['weight']) ? $_GET['weight'] : "";
 	$price = isset($_GET['price']) ? $_GET['price'] : "";
-	$action = isset($_GET['action']) ? $_GET['action'] : "";
+	$amountAvailable = isset($_GET['amountAvailable']) ? $_GET['amountAvailable'] : "";
 	$picture = isset($_GET['picture']) ? $_GET['picture'] : "";
+	$action = isset($_GET['action']) ? $_GET['action'] : "";
 	$quantity = 1;
 	
 	
@@ -41,7 +48,7 @@
         echo "<strong>".$name."</strong> has already been added to your cart.";
 		echo "</div>";
 	}
-	$Sql = "SELECT productID, name, weight, price,picture FROM Inventory ORDER BY name";
+	$Sql = "SELECT productID, name, weight, price,picture, amountAvailable FROM Inventory ORDER BY name";
 	//$Statement = $Database->prepare($Sql);
 	//$Statement->execute();
 	$Result = $Database->query($Sql);
@@ -50,28 +57,26 @@
 	if($Number > 0)
 	{
 		echo "<table class='table table-hover table-responsive table-bordered'>";
-	 
 			echo "<tr>";
-				echo "<th class='textAlignLeft'>Product ID</th>";
+				echo "<th class='textAlignLeft'>Picture</th>";
 				echo "<th>Coffee name</th>";
 				echo "<th>Weight</th>";
 				echo "<th>Price</th>";
-				echo "<th>Picture</th>";
+				echo "<th>Amount available</th>";
 				echo "<th>Add item</th>";
-				
 			echo "</tr>";
 	 
 			while ($Row = $Result->fetch_assoc()){
 				//extract($row);
 				
 				echo "<tr>";
-					echo "<td><div class='productID'>".$Row['productID']."</div></td>";
+					echo "<td><img src='".$Row['picture']."' border = 0></td>";
 					echo "<td><div class='name'>".$Row['name']."</div></td>";
 					echo "<td><div class='weight'>".$Row["weight"]."</div></td>";
 					echo "<td><div class='price'>R ".$Row["price"]."</div></td>";
-					echo "<td><div class='picture'> ".$Row["picture"]."</div></td>";
+					echo "<td><div class='amountAvailable'>".$Row["amountAvailable"]."</div></td>";
 					echo "<td>";
-						echo "<a onclick='insertValues(\"".$Row['productID']."\")' href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."&picture=".$Row['picture']."' class='btn btn-primary'>    ";
+						echo "<a onclick='insertValues(\"".$Row['productID']."\")' href='addToCart.php?productID=".$Row['productID']."&name=".$Row['name']."&weight=".$Row['weight']."&price=".$Row['price']."' class='btn btn-primary'>";
 							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Add item to cart";
 						echo "</a>";
 					echo "</td>";
@@ -101,10 +106,6 @@
 </script>
 
 <?php
-	 
-	 
-	 
-	 
 		echo "</table>";
 	}
 	else
