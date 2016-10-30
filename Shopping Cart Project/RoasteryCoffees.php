@@ -16,10 +16,10 @@
 	//require_once("Database.php"); 
 	//$Database = new Database();
 	
-	if (isset($_SESSION['username']) == ""){
+	/*if (isset($_SESSION['username']) == ""){
 		header("Location: login.php");
 		exit;
-	}
+	}*/
 	
 	$PageTitle = "Coffees";
 	$extras = '<link rel= "stylesheet" href = "css/style.css" type="text/css" media="screen" />';

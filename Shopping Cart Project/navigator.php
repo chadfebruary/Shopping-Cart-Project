@@ -61,10 +61,7 @@ $username = "";
 				</li>
 				
 				<li <?php echo $PageTitle == "Logout" ? "class='active'" : "";?>>
-					<a 
-						href="logout.php">Logout
-					</a>
-				</li>
+					<a href="login.php">Logout</a>
 				</ul>
         </div><!--/.nav-collapse -->
  
