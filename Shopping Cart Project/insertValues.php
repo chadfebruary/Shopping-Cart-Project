@@ -7,7 +7,7 @@
 	$quantity = $_POST['quantity'] ; // int
 	$username = $_SESSION['username'];
 	// (OrderID, ProductID, CustomerUsername, Quantity)
-	$Sql = "INSERT INTO orders VALUES(null,'$productID','$username','$quantity', null, null, null)";
+	$Sql = "INSERT INTO orders VALUES(null,'$productID','$username','$quantity')";
 	
 	// error handling
 	//echo !$Database->query($Sql)?("fail:".$Database->getDb()->error):"succ";

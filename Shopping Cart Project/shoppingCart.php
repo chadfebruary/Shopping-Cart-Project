@@ -13,10 +13,7 @@ $PageTitle="Cart";
 include 'head.php';
 
 
-if (isset($_SESSION['username']) == ""){
-		header("Location: login.php");
-		exit;
-	}
+
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : "";

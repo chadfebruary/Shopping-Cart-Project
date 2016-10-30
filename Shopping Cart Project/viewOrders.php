@@ -4,11 +4,6 @@ $Database = new Database();
 session_start();
 include 'head.php';
 
-if (isset($_SESSION['username']) == ""){
-		header("Location: login.php");
-		exit;
-	}
-
 	$productID = isset($_GET['productID']) ? $_GET['productID'] : "";
 	$name = isset($_GET['name']) ? $_GET['name'] : "error";
 	$name = 'error';
@@ -18,10 +13,9 @@ if (isset($_SESSION['username']) == ""){
 	$picture = isset($_GET['picture']) ? $_GET['picture'] : "";
 	$transactiondate = isset($_GET['transactiondate']) ? $_GET['transactiondate'] : "";
 	$transactionid = isset($_GET['transactionid']) ? $_GET['transactionid'] : "";
-	$username = isset($_SESSION['username']) ? $_SESSION['username'] : "";
 	
 	
-	$Sql = "SELECT * FROM Transactions WHERE username = '$username' ORDER BY transactiondate";
+	$Sql = "SELECT * FROM Transactions ORDER BY transactiondate";
 	$Result = $Database->query($Sql);
 	$Number = $Result->num_rows;
 	
