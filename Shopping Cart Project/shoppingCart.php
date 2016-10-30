@@ -137,8 +137,9 @@ if(isset($_SESSION["cartItems"]))
 					echo "<td><b>Total</b></td>";
 					echo "<td>R ".$TotalPrice."</td>";
 					echo "<td>";
-						echo "<a onclick='buyItem()' href='#' class='btn btn-success'>";
+						echo "<a onclick='buyItem()' href='Success.php' class='btn btn-success'>";
 							echo "<span class='glyphicon glyphicon-shopping-cart'></span> Checkout";
+							
 						echo "</a>";
 					echo "</td>";
 				echo "</tr>";
@@ -159,7 +160,7 @@ if(isset($_SESSION["cartItems"]))
 			type: "POST",
 			url: "addTransaction.php",
 			success: function(data) {
-				alert("Successfully saved" + data);
+			//	alert("Successfully saved" + data);
 			},
 			error: function(data){
 				//alert("Alert");
