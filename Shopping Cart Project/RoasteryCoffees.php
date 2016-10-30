@@ -96,10 +96,10 @@
 			url: "insertValues.php",
 			data: ({productID:prodId, quantity:1}),
 			success: function(data) {
-				alert("Successfully succcuesesdsesesdse ("+prodId+"): " + data);
+				//alert("Successfully succcuesesdsesesdse ("+prodId+"): " + data);
 			},
 			error: function(data){
-				alert("Alert");
+				//alert("Alert");
 			}
 		});
 	};
