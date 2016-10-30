@@ -42,7 +42,7 @@ foreach($_POST AS $key =>$post_var) {
 		echo "$id";		
 		$quantity = $_POST['qnt'];
 		echo $quantity;
-		if ($quantity > 1)
+		if ($quantity > 0)
 		{
 			$Sql = "UPDATE orders SET Quantity = '$quantity' WHERE ProductID = '$id'";
 			$Database->query($Sql);
@@ -165,21 +165,13 @@ if(isset($_SESSION["cartItems"]))
 				alert("Successfully saved" + data);
 			},
 			error: function(data){
-				alert("Alert");
+				//alert("Alert");
 			}
 		});
 	};
 </script>
 <?php
- function addToHistory()
- { 
-	//$customerID = "5";
-	 $Sql = "Insert INTO orders Values('$productID','5','$price')";
-	 $Result = $Database->query($Sql);
-	 $Number = $Result->num_rows;
-	 
- }
- 
+  
 include 'foot.php';
 ?>
 </body>

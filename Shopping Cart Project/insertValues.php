@@ -3,7 +3,6 @@
 	include_once("Database.php"); 
 	$Database = new Database(); // db object
 	session_start();
-	
 	$productID = $_POST['productID'] ; // string
 	$quantity = $_POST['quantity'] ; // int
 	$username = $_SESSION['username'];
@@ -12,7 +11,7 @@
 	
 	// error handling
 	//echo !$Database->query($Sql)?("fail:".$Database->getDb()->error):"succ";
-	echo $Database->query($Sql);
+	$Database->query($Sql);
 	
 	
 ?>

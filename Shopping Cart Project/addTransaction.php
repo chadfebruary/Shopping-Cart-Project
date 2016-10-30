@@ -26,6 +26,35 @@
 			//var_dump($insert);
 			$Database->query($insert);
 		}
+				//var_dump($insert);
+				//$Database->query($insert );
+				$sqlStock = "SELECT amountavailable from inventory WHERE productID = '$ProductID'";
+				$result = $Database->query($sqlStock);
+				
+				$Row = $result->fetch_assoc();
+				//$Stock = $row['amountavailable']; 
+				$stockAvailable= $Row['amountavailable'] ;
+			//	echo "<p>$stockAvailable  IN STOCK</p>";
+				$newStockAvailable = $stockAvailable - $quantity;
+			 //   echo "$newStockAvailable   Stock available";
+				if($newStockAvailable < 0)
+				{
+					//echo $newStockAvailable + "hello";
+					
+					echo "Sorry we do not have $quantity of this stock at the moment.";
+					
+					
+				}
+				else
+				{
+					$Sqlupdate = "UPDATE inventory SET amountavailable = '$newStockAvailable' WHERE ProductID = '$ProductID'";
+					//var_dump($Sqlupdate);
+					$Database->query($Sqlupdate);
+					echo "Succesfull Transaction.";
+				}
+				
+				
+
 
 		//var_dump($insert);
 		//$Database->query($insert );
